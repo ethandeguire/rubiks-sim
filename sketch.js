@@ -1,6 +1,6 @@
 var sqrWidth;
-squares = [];
-var csvData = [2,3,3,0,2,1,0,5,1,4,4,3,0,0,0,5,2,2,5,5,4,1,4,0,1,3,0,2,1,3,2,1,4,5,1,4,0,4,1,2,3,3,2,3,3,0,2,1,4,5,5,4,5,5];
+var squares = [];
+var csvData = [1,5,3,1,2,5,3,3,5,5,3,3,2,1,2,3,4,4,4,1,0,5,4,1,5,4,0,2,4,1,3,0,3,2,0,5,1,0,4,0,5,4,2,2,4,1,5,2,1,3,2,0,0,0];
 var red;
 var showNumbers = true;
 
@@ -21,26 +21,30 @@ class Square{
 		rect(this.x,this.y,this.width,this.width);
 		textSize(20);
 		if(showNumbers == true && this.num >= 0){
+			var column = this.x/this.width;
+			var row = this.y/this.width;
+			
 			textAlign(CENTER);
 			fill(0);
 			noStroke();
+			
 			if (this.num == 4){
-				if(this.col == orange){
+				if(column == 4 && row == 1){
 					text("Back" , this.x + (this.width/2), this.y + (this.width/2));
 				}
-				if(this.col == red){
+				if(column == 4 && row == 7){
 					text("Front" , this.x + (this.width/2), this.y + (this.width/2));
 				}
-				if(this.col == yellow){
+				if(column == 10 && row == 4){
 					text("Down" , this.x + (this.width/2), this.y + (this.width/2));
 				}
-				if(this.col == blue){
+				if(column == 7 && row == 4){
 					text("Right" , this.x + (this.width/2), this.y + (this.width/2));
 				}
-				if(this.col == white){
+				if(column == 4 && row == 4){
 					text("Top" , this.x + (this.width/2), this.y + (this.width/2));
 				}
-				if(this.col == green){
+				if(column == 1 && row == 4){
 					text("Left" , this.x + (this.width/2), this.y + (this.width/2));
 				}
 			}else{
@@ -61,20 +65,15 @@ class Square{
 }
 
 function setup() {
-	/*
+	
 	var button = createButton("Add CSV Data");
-	button.mousePressed(function(){var data = prompt(); csvData = data; console.log(data);makeSquares();});
+	button.mousePressed(function(){var data=prompt();var tempArr=[];for(var i=0;i<data.length;i++){if(data[i]!=','){tempArr.push(int(data[i]));}}csvData=tempArr;makeSquares();});
 	button.position(0,0);
-	*/
+	
 	var button = createButton("Show Numbers");
 	button.mouseClicked(function(){if(showNumbers == false){showNumbers = true}else{showNumbers = false}makeSquares();});
 	button.position(0,25);
 	
-	
-	createCanvas(windowWidth,windowHeight-5);
-	background(255);
-	noStroke();
-	frameRate(60);
 	
 	red = color(255,0,0);
 	yellow = color(255,255,0);
@@ -90,6 +89,12 @@ function setup() {
 }
 
 function makeSquares(){
+	createCanvas(windowWidth,windowHeight-5);
+	background(255);
+	noStroke();
+	frameRate(60);
+	
+	
 	//finds maximum square width;
 	var maxWidthX = windowWidth/12;
 	var maxWidthY = windowHeight/9;
