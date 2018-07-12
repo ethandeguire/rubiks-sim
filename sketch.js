@@ -1,11 +1,8 @@
 var sqrWidth;
 squares = [];
-var csvData = 
-[
-2,5,5,2,2,4,1,2,4,1,4,4,1,0,0,3,0,0,3,5,5,1,4,0,1,4,0,3,1,0,2,1,0,2,1,5,2,2,1,3,3,4,3,3,4,2,3,0,5,5,3,5,5,4
-];
-
+var csvData = [2,3,3,0,2,1,0,5,1,4,4,3,0,0,0,5,2,2,5,5,4,1,4,0,1,3,0,2,1,3,2,1,4,5,1,4,0,4,1,2,3,3,2,3,3,0,2,1,4,5,5,4,5,5];
 var red;
+var showNumbers = true;
 
 class Square{
 	constructor(width,x,y,col){
@@ -13,24 +10,67 @@ class Square{
 		this.x = x;
 		this.y = y;
 		this.col = col;
+		this.num;
 	}
 	
 	show(){
 		rectMode(CORNER);
 		fill(this.col);
+		noStroke();
+		if(this.num >= 0){stroke(0);}
 		rect(this.x,this.y,this.width,this.width);
+		textSize(20);
+		if(showNumbers == true && this.num >= 0){
+			textAlign(CENTER);
+			fill(0);
+			noStroke();
+			if (this.num == 4){
+				if(this.col == orange){
+					text("Back" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+				if(this.col == red){
+					text("Front" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+				if(this.col == yellow){
+					text("Down" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+				if(this.col == blue){
+					text("Right" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+				if(this.col == white){
+					text("Top" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+				if(this.col == green){
+					text("Left" , this.x + (this.width/2), this.y + (this.width/2));
+				}
+			}else{
+				text(this.num + "" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+		}
 	}
 	
-	change(newCol){
+	change(newCol,num){
+		this.num = num;
 		this.col = color(newCol);
 		stroke(0);
 		strokeWeight(3);
 		this.show();
 		noStroke();
+		
 	}
 }
 
 function setup() {
+	/*
+	var button = createButton("Add CSV Data");
+	button.mousePressed(function(){var data = prompt(); csvData = data; console.log(data);makeSquares();});
+	button.position(0,0);
+	*/
+	var button = createButton("Show Numbers");
+	button.mouseClicked(function(){if(showNumbers == false){showNumbers = true}else{showNumbers = false}makeSquares();});
+	button.position(0,25);
+	
+	
 	createCanvas(windowWidth,windowHeight-5);
 	background(255);
 	noStroke();
@@ -39,20 +79,24 @@ function setup() {
 	red = color(255,0,0);
 	yellow = color(255,255,0);
 	green = color(0,255,0);
-	blue = color(0,0,255);
+	blue = color(0,120,255);
 	orange = color(255,128,0);
 	white = color(255);
+	makeSquares();
 	
+	
+	
+	
+}
+
+function makeSquares(){
 	//finds maximum square width;
 	var maxWidthX = windowWidth/12;
 	var maxWidthY = windowHeight/9;
 	if(maxWidthX <= maxWidthY){sqrWidth = maxWidthX}else{sqrWidth = maxWidthY}
 	
-	
 	var squaresX = int(windowWidth/sqrWidth);
 	var squaresY = int(windowHeight/sqrWidth);
-	
-	
 	for(var i = 0; i<squaresX; i++){
 		squares[i] = [];
 		for(var j = 0; j<squaresY; j++){
@@ -63,85 +107,91 @@ function setup() {
 	
 	
 	//front
-	newSquare(3,6,0);
-	newSquare(4,6,1);
-	newSquare(5,6,2);
-	newSquare(3,7,3);
-	newSquare(4,7,4);
-	newSquare(5,7,5);
-	newSquare(3,8,6);
-	newSquare(4,8,7);
-	newSquare(5,8,8);
+	newSquare(3,6,0,0);
+	newSquare(4,6,1,1);
+	newSquare(5,6,2,2);
+	newSquare(3,7,3,3);
+	newSquare(4,7,4,4);
+	newSquare(5,7,5,5);
+	newSquare(3,8,6,6);
+	newSquare(4,8,7,7);
+	newSquare(5,8,8,8);
 	
 	//top
-	newSquare(3,3,9);
-	newSquare(4,3,10);
-	newSquare(5,3,11);
-	newSquare(3,4,12);
-	newSquare(4,4,13);
-	newSquare(5,4,14);
-	newSquare(3,5,15);
-	newSquare(4,5,16);
-	newSquare(5,5,17);
+	newSquare(3,3,9,0);
+	newSquare(4,3,10,1);
+	newSquare(5,3,11,2);
+	newSquare(3,4,12,3);
+	newSquare(4,4,13,4);
+	newSquare(5,4,14,5);
+	newSquare(3,5,15,6);
+	newSquare(4,5,16,7);
+	newSquare(5,5,17,8);
 	
 	//back
-	newSquare(3,2,18);
-	newSquare(4,2,19);
-	newSquare(5,2,20);
-	newSquare(3,1,21);
-	newSquare(4,1,22);
-	newSquare(5,1,23);
-	newSquare(3,0,24);
-	newSquare(4,0,25);
-	newSquare(5,0,26);
+	newSquare(3,2,18,0);
+	newSquare(4,2,19,1);
+	newSquare(5,2,20,2);
+	newSquare(3,1,21,3);
+	newSquare(4,1,22,4);
+	newSquare(5,1,23,5);
+	newSquare(3,0,24,6);
+	newSquare(4,0,25,7);
+	newSquare(5,0,26,8);
 	
 	//bottom
-	newSquare(11,5,27);
-	newSquare(10,5,28);
-	newSquare(9,5,29);
-	newSquare(11,4,30);
-	newSquare(10,4,31);
-	newSquare(9,4,32);
-	newSquare(11,3,33);
-	newSquare(10,3,34);
-	newSquare(9,3,35);
-	
+	newSquare(11,5,27,0);
+	newSquare(10,5,28,1);
+	newSquare(9,5,29,2);
+	newSquare(11,4,30,3);
+	newSquare(10,4,31,4);
+	newSquare(9,4,32,5);
+	newSquare(11,3,33,6);
+	newSquare(10,3,34,7);
+	newSquare(9,3,35,8);
 	
 	//right
-	newSquare(6,5,36);
-	newSquare(6,4,37);
-	newSquare(6,3,38);
-	newSquare(7,5,39);
-	newSquare(7,4,40);
-	newSquare(7,3,41);
-	newSquare(8,5,42);
-	newSquare(8,4,43);
-	newSquare(8,3,44);
-	
-	
+	newSquare(6,5,36,0);
+	newSquare(6,4,37,1);
+	newSquare(6,3,38,2);
+	newSquare(7,5,39,3);
+	newSquare(7,4,40,4);
+	newSquare(7,3,41,5);
+	newSquare(8,5,42,6);
+	newSquare(8,4,43,7);
+	newSquare(8,3,44,8);
 	
 	//left
-	newSquare(2,3,45);
-	newSquare(2,4,46);
-	newSquare(2,5,47);
-	newSquare(1,3,48);
-	newSquare(1,4,49);
-	newSquare(1,5,50);
-	newSquare(0,3,51);
-	newSquare(0,4,52);
-	newSquare(0,5,53);
+	newSquare(2,3,45,0);
+	newSquare(2,4,46,1);
+	newSquare(2,5,47,2);
+	newSquare(1,3,48,3);
+	newSquare(1,4,49,4);
+	newSquare(1,5,50,5);
+	newSquare(0,3,51,6);
+	newSquare(0,4,52,7);
+	newSquare(0,5,53,8);
+	
+	
+	
+	noFill();
+	stroke(0);
+	strokeWeight(10);
+	rect(sqrWidth*3,0,sqrWidth*3,sqrWidth*9);
+	rect(0,sqrWidth*3,sqrWidth*12,sqrWidth*3);
+	rect(0,sqrWidth*3,sqrWidth*9,sqrWidth*3);
+	
 	
 }
 
-function newSquare(x,y,arrPos){
+function newSquare(x,y,arrPos,num){
 	if(csvData[arrPos] == 0){col = white}
 	if(csvData[arrPos] == 1){col = yellow}
 	if(csvData[arrPos] == 2){col = red}
 	if(csvData[arrPos] == 3){col = blue}
 	if(csvData[arrPos] == 4){col = orange}
 	if(csvData[arrPos] == 5){col = green}
-	console.log(csvData[arrPos]);
-	squares[x][y].change(col);
+	squares[x][y].change(col,num);
 }
 
 function draw() {
