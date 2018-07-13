@@ -1,7 +1,5 @@
-var sqrWidth;
 var squares = [];
 var csvData = [1,5,3,1,2,5,3,3,5,5,3,3,2,1,2,3,4,4,4,1,0,5,4,1,5,4,0,2,4,1,3,0,3,2,0,5,1,0,4,0,5,4,2,2,4,1,5,2,1,3,2,0,0,0];
-var red;
 var showNumbers = true;
 
 class Square{
@@ -46,8 +44,8 @@ class Square{
 			if(round(column) == 1 && round(row) == 4){
 				text("Left" , this.x + (this.width/2), this.y + (this.width/2));
 			}
-			else{
-				//text(this.num + "" , this.x + (this.width/2), this.y + (this.width/2));
+			if(this.num != 4){
+				text(this.num + "" , this.x + (this.width/2), this.y + (this.width/2));
 			}
 		}
 	}
@@ -97,7 +95,7 @@ function makeSquares(){
 	//finds maximum square width;
 	var maxWidthX = windowWidth/12;
 	var maxWidthY = windowHeight/9;
-	if(maxWidthX <= maxWidthY){sqrWidth = maxWidthX}else{sqrWidth = maxWidthY}
+	if(maxWidthX <= maxWidthY){sqrWidth = maxWidthX}else{var sqrWidth = maxWidthY}
 	
 	var squaresX = int(windowWidth/sqrWidth);
 	var squaresY = int(windowHeight/sqrWidth);
