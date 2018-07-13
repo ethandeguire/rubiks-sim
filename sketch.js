@@ -28,27 +28,26 @@ class Square{
 			fill(0);
 			noStroke();
 			
-			if (this.num == 4){
-				if(column == 4 && row == 1){
-					text("Back" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-				if(column == 4 && row == 7){
-					text("Front" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-				if(column == 10 && row == 4){
-					text("Down" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-				if(column == 7 && row == 4){
-					text("Right" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-				if(column == 4 && row == 4){
-					text("Top" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-				if(column == 1 && row == 4){
-					text("Left" , this.x + (this.width/2), this.y + (this.width/2));
-				}
-			}else{
-				text(this.num + "" , this.x + (this.width/2), this.y + (this.width/2));
+			if(round(column) == 4 && row == 1){
+				text("Back" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			if(round(column) == 4 && round(row) == 7){
+				text("Front" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			if(round(column) == 10 && round(row) == 4){
+				text("Down" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			if(round(column) == 7 && round(row) == 4){
+				text("Right" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			if(round(column) == 4 && round(row) == 4){
+				text("Top" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			if(round(column) == 1 && round(row) == 4){
+				text("Left" , this.x + (this.width/2), this.y + (this.width/2));
+			}
+			else{
+				//text(this.num + "" , this.x + (this.width/2), this.y + (this.width/2));
 			}
 		}
 	}
